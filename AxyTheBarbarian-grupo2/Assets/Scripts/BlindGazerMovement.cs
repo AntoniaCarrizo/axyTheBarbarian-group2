@@ -5,8 +5,8 @@ using UnityEngine;
 public class BlindGazerMovement : MonoBehaviour
 {
 
-    public float amplitude = 3.0f;
-    public float speed = 1.5f;
+    public float distance = 3.0f;
+    public float speed = 1.0f;
 
     private Vector3 startPos;
 
@@ -19,7 +19,7 @@ public class BlindGazerMovement : MonoBehaviour
     {
         // Calculate how much it moves on the y axis.
         // Used sin function for a better movement.
-        float verticalOffset = Mathf.Sin(Time.time * speed) * amplitude;
+        float verticalOffset = Mathf.Sin(Time.time * speed) * distance;
 
         // Calculate new position based on the starting position and the added value using the sin wave.
         Vector3 newPosition = startPos + Vector3.up * verticalOffset;
