@@ -10,34 +10,39 @@ public class SimpleMovement : MonoBehaviour
 
     void Update()
     {
-        //entrada
+        HandleInput();
+        UpdateMovement();
+        UpdateColors();
+    }
+
+    void HandleInput()
+    {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        //cambio de velocidad
         if (Input.GetKeyDown(KeyCode.Space))
         {
             isFastSpeed = !isFastSpeed;
         }
+    }
 
-        //dirección del movimiento
+    void UpdateMovement()
+    {
         float currentMoveSpeed = isFastSpeed ? moveSpeedFast : moveSpeedSlow;
-        Vector2 movement = new Vector2(horizontalInput, verticalInput) * currentMoveSpeed * Time.deltaTime;
-
-        //movimiento 
+        Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * currentMoveSpeed * Time.deltaTime;
         transform.Translate(movement);
+    }
 
-        //cambiar color de fondo
+    void UpdateColors()
+    {
         if (Input.GetKeyDown(KeyCode.X))
         {
             Camera.main.backgroundColor = Random.ColorHSV();
         }
 
-        //cambiar color del avatar
         if (Input.GetKeyDown(KeyCode.C))
         {
             GetComponent<Renderer>().material.color = Random.ColorHSV();
         }
     }
 }
-
