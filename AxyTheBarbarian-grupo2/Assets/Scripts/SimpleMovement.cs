@@ -12,9 +12,9 @@ public class SimpleMovement : MonoBehaviour
 
     void Start()
     {
-        // Obtener el AudioSource del jugador
+        //obtener componente de audio
         audioSource = GetComponent<AudioSource>();
-        // Asignar el AudioClip al AudioSource desde el Inspector
+        //asignar el audio
         audioSource.clip = collisionSound;
     }
     void Update()
@@ -55,21 +55,19 @@ public class SimpleMovement : MonoBehaviour
         }
     }
 
-    // Método para detectar colisiones 2D
+    //para colisiones
     void OnCollisionEnter2D(Collision2D collision)
     {
-        // Si colisiona con un objeto que tenga el tag "Enemy"
+        //colision con un enemigo
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            // Aquí puedes añadir acciones cuando colisiona con un enemigo, como reducir la salud del jugador, reproducir un sonido, etc.
             Debug.Log("Colisión con un enemigo");
             audioSource.Play();
         }
 
-        // Si colisiona con un objeto que tenga el tag "Wall"
+        //colision con una pared
         if (collision.gameObject.CompareTag("Wall"))
         {
-            // Aquí puedes añadir acciones cuando colisiona con una pared, como detener el movimiento del jugador, reproducir un sonido, etc.
             Debug.Log("Colisión con una pared");
             audioSource.Play();
         }
