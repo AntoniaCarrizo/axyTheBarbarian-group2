@@ -7,7 +7,16 @@ public class SimpleMovement : MonoBehaviour
     public float moveSpeedSlow = 4f; //velocidad lenta
     public float moveSpeedFast = 8f; //velocidad rápida
     private bool isFastSpeed = false; //ayuda para cambiar la velocidad
+    public AudioClip collisionSound; // Sonido al colisionar
+    private AudioSource audioSource; // Referencia al AudioSource
 
+    void Start()
+    {
+        //obtener componente de audio
+        audioSource = GetComponent<AudioSource>();
+        //asignar el audio
+        audioSource.clip = collisionSound;
+    }
     void Update()
     {
         HandleInput();
@@ -43,6 +52,24 @@ public class SimpleMovement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.C))
         {
             GetComponent<Renderer>().material.color = Random.ColorHSV();
+        }
+    }
+
+    //para colisiones
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        //colision con un enemigo
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            Debug.Log("Colisión con un enemigo");
+            audioSource.Play();
+        }
+
+        //colision con una pared
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Colisión con una pared");
+            audioSource.Play();
         }
     }
 }
