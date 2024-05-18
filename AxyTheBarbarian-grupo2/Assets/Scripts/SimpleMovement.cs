@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class SimpleMovement : MonoBehaviour
 {
@@ -58,14 +59,23 @@ public class SimpleMovement : MonoBehaviour
     //para colisiones
     void OnCollisionEnter2D(Collision2D collision)
     {
-        //colision con un enemigo
+        // Colisión con un enemigo
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Colisión con un enemigo");
             audioSource.Play();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
         }
 
-        //colision con una pared
+        // Colisión con una flecha
+        if (collision.gameObject.CompareTag("Arrow"))
+        {
+            Debug.Log("Colisión con una flecha");
+            audioSource.Play();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
+        }
+
+        // Colisión con una pared
         if (collision.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Colisión con una pared");
