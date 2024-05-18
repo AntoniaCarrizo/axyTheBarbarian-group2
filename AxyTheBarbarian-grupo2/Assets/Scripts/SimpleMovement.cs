@@ -11,35 +11,29 @@ public class SimpleMovement : MonoBehaviour
     public AudioClip collisionSound; // Sonido al colisionar
     private AudioSource audioSource; // Referencia al AudioSource
 
+    InputComponent inputComponent;
+
     void Start()
     {
         //obtener componente de audio
         audioSource = GetComponent<AudioSource>();
         //asignar el audio
         audioSource.clip = collisionSound;
+
+        inputComponent = GetComponent<InputComponent>();
     }
     void Update()
     {
-        HandleInput();
-        UpdateMovement();
+        (float, float) direction = inputComponent.HandleInput();
+        UpdateMovement(direction);
         UpdateColors();
     }
 
-    void HandleInput()
+    void UpdateMovement((float, float) direction)
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            isFastSpeed = !isFastSpeed;
-        }
-    }
-
-    void UpdateMovement()
-    {
-        float currentMoveSpeed = isFastSpeed ? moveSpeedFast : moveSpeedSlow;
-        Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * currentMoveSpeed * Time.deltaTime;
+        // float currentMoveSpeed = isFastSpeed ? moveSpeedFast : moveSpeedSlow;
+        float currentMoveSpeed = moveSpeedSlow;
+        Vector2 movement = new Vector2(direction.Item1, direction.Item2) * currentMoveSpeed * Time.deltaTime;
         transform.Translate(movement);
     }
 
