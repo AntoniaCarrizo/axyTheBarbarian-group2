@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class SimpleMovement : MonoBehaviour
+public class Barbarian : MonoBehaviour
 {
     public float moveSpeedSlow = 4f; //velocidad lenta
     public float moveSpeedFast = 8f; //velocidad rápida
     private bool isFastSpeed = false; //ayuda para cambiar la velocidad
+
     public AudioClip collisionSound; // Sonido al colisionar
     private AudioSource audioSource; // Referencia al AudioSource
 
+    InputController inputController;
     PhysicsController physicsController;
 
     void Start()
@@ -20,27 +22,29 @@ public class SimpleMovement : MonoBehaviour
         //asignar el audio
         audioSource.clip = collisionSound;
 
+        inputController = GetComponent<InputController>();
         physicsController = GetComponent<PhysicsController>();
-        if (physicsController != null)
-        {
-            physicsController.moveSpeedFast = moveSpeedFast;
-            physicsController.moveSpeedSlow = moveSpeedSlow;
-        }
     }
     void Update()
     {
-        HandleInput();
+        (float, float) direction = inputController.HandleInput();
+        isFastSpeed = inputController.GetIsFast();
 
-        if (physicsController != null)
-        {
-            physicsController.UpdateMovement(isFastSpeed);
-        }
+        Debug.Log(direction);
+
+        physicsController.moveSpeedFast = moveSpeedFast;
+        physicsController.moveSpeedSlow = moveSpeedSlow;
+        physicsController.UpdateMovement(isFastSpeed, direction);
 
         UpdateColors();
     }
 
-    void HandleInput()
+    void UpdateMovement((float, float) direction)
     {
+        // float currentMoveSpeed = isFastSpeed ? moveSpeedFast : moveSpeedSlow;
+        float currentMoveSpeed = moveSpeedSlow;
+        Vector2 movement = new Vector2(direction.Item1, direction.Item2) * currentMoveSpeed * Time.deltaTime;
+        transform.Translate(movement);
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
