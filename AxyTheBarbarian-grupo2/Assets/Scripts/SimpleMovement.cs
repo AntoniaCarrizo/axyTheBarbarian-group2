@@ -81,5 +81,12 @@ public class SimpleMovement : MonoBehaviour
             Debug.Log("Colisión con una pared");
             audioSource.Play();
         }
+
+        if (collision.gameObject.CompareTag("Exit"))
+        {
+            Debug.Log("Colisión con el objeto de salida, Ganaste!!");
+            // SceneManager.LoadScene("VictoryScene"); // Carga la escena de victoria
+        }
+
     }
 }
