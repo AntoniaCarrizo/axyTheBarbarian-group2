@@ -11,17 +11,31 @@ public class SimpleMovement : MonoBehaviour
     public AudioClip collisionSound; // Sonido al colisionar
     private AudioSource audioSource; // Referencia al AudioSource
 
+    PhysicsController physicsController;
+
     void Start()
     {
         //obtener componente de audio
         audioSource = GetComponent<AudioSource>();
         //asignar el audio
         audioSource.clip = collisionSound;
+
+        physicsController = GetComponent<PhysicsController>();
+        if (physicsController != null)
+        {
+            physicsController.moveSpeedFast = moveSpeedFast;
+            physicsController.moveSpeedSlow = moveSpeedSlow;
+        }
     }
     void Update()
     {
         HandleInput();
-        UpdateMovement();
+
+        if (physicsController != null)
+        {
+            physicsController.UpdateMovement(isFastSpeed);
+        }
+
         UpdateColors();
     }
 
@@ -34,13 +48,6 @@ public class SimpleMovement : MonoBehaviour
         {
             isFastSpeed = !isFastSpeed;
         }
-    }
-
-    void UpdateMovement()
-    {
-        float currentMoveSpeed = isFastSpeed ? moveSpeedFast : moveSpeedSlow;
-        Vector2 movement = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")) * currentMoveSpeed * Time.deltaTime;
-        transform.Translate(movement);
     }
 
     void UpdateColors()
