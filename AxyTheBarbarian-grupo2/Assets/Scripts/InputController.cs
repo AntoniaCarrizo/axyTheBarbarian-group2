@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InputComponent : MonoBehaviour
+public class InputController : MonoBehaviour
 {   
-    private bool isFastSpeed;
+    private bool isFastSpeed = false;
 
     public (float, float) HandleInput()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        // CheckIsFastSpeed();
+        CheckIsFastSpeed();
 
         return (horizontalInput, verticalInput);
     }
@@ -22,5 +22,10 @@ public class InputComponent : MonoBehaviour
         {
             isFastSpeed = !isFastSpeed;
         }
+    }
+
+    public bool GetIsFast()
+    {
+        return isFastSpeed;
     }
 }
