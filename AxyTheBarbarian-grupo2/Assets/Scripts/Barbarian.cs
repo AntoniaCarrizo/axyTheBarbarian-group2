@@ -9,18 +9,20 @@ public class Barbarian : MonoBehaviour
     public float moveSpeedFast = 8f; //velocidad rápida
     private bool isFastSpeed = false; //ayuda para cambiar la velocidad
 
-    public AudioClip collisionSound; // Sonido al colisionar
-    private AudioSource audioSource; // Referencia al AudioSource
 
     InputController inputController;
     PhysicsController physicsController;
 
+    AudioController audioController;
+
+
     void Start()
     {
-        //obtener componente de audio
-        audioSource = GetComponent<AudioSource>();
-        //asignar el audio
-        audioSource.clip = collisionSound;
+        // //obtener componente de audio
+        // audioSource = GetComponent<AudioSource>();
+        // //asignar el audio
+        // audioSource.clip = collisionSound;
+        audioController = GetComponent<AudioController>();
 
         inputController = GetComponent<InputController>();
         physicsController = GetComponent<PhysicsController>();
@@ -74,7 +76,7 @@ public class Barbarian : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy"))
         {
             Debug.Log("Colisión con un enemigo");
-            audioSource.Play();
+            audioController.PlayCollisionSound();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
         }
 
@@ -82,7 +84,7 @@ public class Barbarian : MonoBehaviour
         if (collision.gameObject.CompareTag("Arrow"))
         {
             Debug.Log("Colisión con una flecha");
-            audioSource.Play();
+            audioController.PlayCollisionSound();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
         }
 
@@ -90,7 +92,8 @@ public class Barbarian : MonoBehaviour
         if (collision.gameObject.CompareTag("Wall"))
         {
             Debug.Log("Colisión con una pared");
-            audioSource.Play();
+            audioController.PlayCollisionSound();
+
         }
 
         if (collision.gameObject.CompareTag("Exit"))

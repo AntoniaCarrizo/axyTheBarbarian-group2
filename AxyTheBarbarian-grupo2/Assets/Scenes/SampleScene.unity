@@ -1301,6 +1301,8 @@ GameObject:
   - component: {fileID: 1863053348}
   - component: {fileID: 1863053349}
   - component: {fileID: 1863053350}
+  - component: {fileID: 1863053351}
+  - component: {fileID: 1863053352}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -1559,6 +1561,33 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f20195e5c25de24bb89032afe973d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1863053351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863053341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38ce6a888abbe94e29bd0e133097f753, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  collisionSound: {fileID: 8300000, guid: 75adfe9a619833445a701305b983e548, type: 3}
+--- !u!114 &1863053352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1863053341}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 832be10ae4327cae1b2154df8976144d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeedSlow: 4
+  moveSpeedFast: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
