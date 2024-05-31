@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
 {
     public (float, float) direction;
     public Vector2 movement;
-    public bool canMove;
+    public bool canMove = true;
 
     InputController inputController;
     PhysicsController physicsController;
