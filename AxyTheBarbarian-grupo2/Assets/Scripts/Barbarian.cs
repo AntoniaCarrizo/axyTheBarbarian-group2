@@ -78,6 +78,7 @@ public class Barbarian : MonoBehaviour
             Debug.Log("Colisión con un enemigo");
             audioController.PlayCollisionSound();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
+            GlobalListener.Instance.SetWinningState(false);
         }
 
         // Colisión con una flecha
@@ -86,6 +87,7 @@ public class Barbarian : MonoBehaviour
             Debug.Log("Colisión con una flecha");
             audioController.PlayCollisionSound();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
+            GlobalListener.Instance.SetWinningState(false);
         }
 
         // Colisión con una pared
@@ -93,6 +95,7 @@ public class Barbarian : MonoBehaviour
         {
             Debug.Log("Colisión con una pared");
             audioController.PlayCollisionSound();
+            GlobalListener.Instance.SetWinningState(false);
 
         }
 
@@ -100,6 +103,7 @@ public class Barbarian : MonoBehaviour
         {
             Debug.Log("Colisión con el objeto de salida, Ganaste!!");
             // SceneManager.LoadScene("VictoryScene"); // Carga la escena de victoria
+            GlobalListener.Instance.SetWinningState(true);
         }
 
     }
