@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
+
+
 public class Barbarian : MonoBehaviour
 {
     public float moveSpeedSlow = 4f; //velocidad lenta
@@ -26,13 +30,19 @@ public class Barbarian : MonoBehaviour
 
         inputController = GetComponent<InputController>();
         physicsController = GetComponent<PhysicsController>();
+
+        // Crea un nuevo GameObject vacío
+        GameObject newObject = new GameObject("ObserverObject");
+
+        // Agrega el script GlobalListener al nuevo GameObject
+        GlobalListener observerScript = newObject.AddComponent<GlobalListener>();
     }
     void Update()
     {
         (float, float) direction = inputController.HandleInput();
         isFastSpeed = inputController.GetIsFast();
 
-        Debug.Log(direction);
+        // Debug.Log(direction);
 
         physicsController.moveSpeedFast = moveSpeedFast;
         physicsController.moveSpeedSlow = moveSpeedSlow;
@@ -78,6 +88,7 @@ public class Barbarian : MonoBehaviour
             Debug.Log("Colisión con un enemigo");
             audioController.PlayCollisionSound();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
+            GlobalListener.Instance.SetWinningState(false);
         }
 
         // Colisión con una flecha
@@ -86,6 +97,7 @@ public class Barbarian : MonoBehaviour
             Debug.Log("Colisión con una flecha");
             audioController.PlayCollisionSound();
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); // Reinicia la escena
+            GlobalListener.Instance.SetWinningState(false);
         }
 
         // Colisión con una pared
@@ -93,6 +105,7 @@ public class Barbarian : MonoBehaviour
         {
             Debug.Log("Colisión con una pared");
             audioController.PlayCollisionSound();
+            GlobalListener.Instance.SetWinningState(false);
 
         }
 
@@ -100,6 +113,7 @@ public class Barbarian : MonoBehaviour
         {
             Debug.Log("Colisión con el objeto de salida, Ganaste!!");
             // SceneManager.LoadScene("VictoryScene"); // Carga la escena de victoria
+            GlobalListener.Instance.SetWinningState(true);
         }
 
     }
