@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+
+
+
+
 public class Barbarian : MonoBehaviour
 {
     public float moveSpeedSlow = 4f; //velocidad lenta
@@ -26,13 +30,19 @@ public class Barbarian : MonoBehaviour
 
         inputController = GetComponent<InputController>();
         physicsController = GetComponent<PhysicsController>();
+
+        // Crea un nuevo GameObject vacío
+        GameObject newObject = new GameObject("ObserverObject");
+
+        // Agrega el script GlobalListener al nuevo GameObject
+        GlobalListener observerScript = newObject.AddComponent<GlobalListener>();
     }
     void Update()
     {
         (float, float) direction = inputController.HandleInput();
         isFastSpeed = inputController.GetIsFast();
 
-        Debug.Log(direction);
+        // Debug.Log(direction);
 
         physicsController.moveSpeedFast = moveSpeedFast;
         physicsController.moveSpeedSlow = moveSpeedSlow;

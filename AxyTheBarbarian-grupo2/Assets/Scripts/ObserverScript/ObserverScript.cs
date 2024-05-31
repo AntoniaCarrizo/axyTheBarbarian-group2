@@ -5,16 +5,17 @@
 
 using UnityEngine;
 
+
+
+
 public class GlobalListener : MonoBehaviour
 {
-    public static GlobalListener Instance;
-
+    public static GlobalListener Instance { get; private set; }
 
     private bool isWinning = false;
 
     private void Awake()
     {
-        
         if (Instance == null)
         {
             Instance = this;
@@ -26,14 +27,12 @@ public class GlobalListener : MonoBehaviour
         }
     }
 
-   
     public void SetWinningState(bool isWin)
     {
         isWinning = isWin;
-        
+        Debug.Log("Observer vio que paso algo");
     }
 
-    
     public bool IsWinning()
     {
         return isWinning;
