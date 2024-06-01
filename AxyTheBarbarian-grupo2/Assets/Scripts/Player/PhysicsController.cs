@@ -2,14 +2,26 @@ using UnityEngine;
 
 public class PhysicsController : MonoBehaviour
 {
-    public float moveSpeedFast;
-    public float moveSpeedSlow;
+    Player player;
 
-    public Vector2 UpdateMovement((float, float) direction)
+    void Start()
     {
-        // float currentMoveSpeed = isFastSpeed ? moveSpeedFast : moveSpeedSlow;
-        Vector2 movement = new Vector2(direction.Item1, direction.Item2) * 2 * Time.deltaTime;
+        player = GetComponent<Player>();
+    }
 
+    public Vector2 UpdateMovement(Vector2 direction, float speed)
+    {
+        Vector2 movement = direction * speed * Time.deltaTime;
         return movement;
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Projectile") || 
+            collision.gameObject.CompareTag("Enemy") || 
+            collision.gameObject.CompareTag("Exit"))
+        {
+            player.canMove = false;
+        }
     }
 }

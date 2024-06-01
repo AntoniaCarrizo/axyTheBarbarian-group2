@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class InputController : MonoBehaviour
 {   
-    public (float, float) HandleInput()
+    public Vector2 HandleInput()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
-        return (horizontalInput, verticalInput);
+        return new Vector2(horizontalInput, verticalInput);
     }
 }

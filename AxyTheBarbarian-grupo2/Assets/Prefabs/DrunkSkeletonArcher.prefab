@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5523695052828818578}
   - component: {fileID: 9096612088284792814}
-  - component: {fileID: 1856095682417756086}
   - component: {fileID: 8667358822965513789}
+  - component: {fileID: 1905984386267970268}
   m_Layer: 0
   m_Name: DrunkSkeletonArcher
   m_TagString: Enemy
@@ -86,21 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1856095682417756086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9133298211437765597}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 902a811eebb1c196ca7c418dab619a0b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  arrowPrefab: {fileID: 6923648654030185437, guid: 48fe9881a4ef3d9dbb3cc7d297b4c987, type: 3}
-  fireRate: 1
-  arrowSpawnRadius: 3
 --- !u!61 &8667358822965513789
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,3 +131,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1905984386267970268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9133298211437765597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 72f74d3d2c5a81f50aa7e3adc5d6c1b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 6923648654030185437, guid: 48fe9881a4ef3d9dbb3cc7d297b4c987, type: 3}
+  fireRate: 1
+  arrowSpawnRadius: 3

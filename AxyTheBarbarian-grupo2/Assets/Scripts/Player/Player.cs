@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-    public (float, float) direction;
+    public Vector2 direction;
     public Vector2 movement;
     public bool canMove = true;
+    public float speed = 2;
 
     InputController inputController;
     PhysicsController physicsController;
@@ -23,7 +24,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         direction = inputController.HandleInput();
-        movement = physicsController.UpdateMovement(direction);
+        movement = physicsController.UpdateMovement(direction, this.speed);
         stateController.UpdateState(canMove, movement);
     }
 

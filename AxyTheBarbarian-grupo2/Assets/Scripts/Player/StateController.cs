@@ -17,28 +17,4 @@ public class StateController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.tag == "Wall")
-        {
-            // player.canMove = false;
-        }
-
-        if (collision.gameObject.tag == "Projectile" || collision.gameObject.tag == "Enemy")
-        {
-            player.canMove = false;
-        }
-
-        if (collision.gameObject.tag == "Exit")
-        {
-            player.canMove = false;
-        }
-
-        // if (collision.gameObject.tag == "Wall")
-        // {
-        //     player.canMove = false;
-        // }
-
-
-    }
 }
