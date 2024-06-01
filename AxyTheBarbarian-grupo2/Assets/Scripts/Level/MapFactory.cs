@@ -10,6 +10,7 @@ public class MapFactory : MonoBehaviour
     public GameObject playerPrefab;
     public GameObject skeletonPregab;
     public GameObject gazerPrefab;
+    public GameObject exitPrefab;
 
     void Start()
     {
@@ -45,6 +46,9 @@ public class MapFactory : MonoBehaviour
                         break;
                     case 'S':
                         Instantiate(skeletonPregab, position, transform.rotation);
+                        break;
+                    case 'X':
+                        Instantiate(exitPrefab, position, transform.rotation);
                         break;
                 }
             }
