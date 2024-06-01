@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PhysicsController : MonoBehaviour
 {
@@ -22,6 +23,11 @@ public class PhysicsController : MonoBehaviour
             collision.gameObject.CompareTag("Exit"))
         {
             player.canMove = false;
+        }
+
+        if (collision.gameObject.CompareTag("Exit"))
+        {
+            SceneManager.LoadScene("VictoryScene");
         }
     }
 }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -71,7 +70,6 @@ public class Player : MonoBehaviour
     //     if (collision.gameObject.CompareTag("Exit"))
     //     {
     //         Debug.Log("Colisión con el objeto de salida, Ganaste!!");
-    //         // SceneManager.LoadScene("VictoryScene"); // Carga la escena de victoria
     //     }
 
     // }
