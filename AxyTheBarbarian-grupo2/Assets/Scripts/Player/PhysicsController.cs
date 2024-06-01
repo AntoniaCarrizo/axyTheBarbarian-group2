@@ -11,7 +11,32 @@ public class PhysicsController : MonoBehaviour
     void Start()
     {
         player = GetComponent<Player>();
-        audioController = GetComponent<AudioController>();
+
+        // Get the AudioController from the AudioControllerObject
+        GameObject audioControllerObject = GameObject.Find("AudioControllerObject");
+        if (audioControllerObject == null)
+        {
+            // Create the AudioControllerObject and add the AudioController component
+            audioControllerObject = new GameObject("AudioControllerObject");
+            audioController = audioControllerObject.AddComponent<AudioController>();
+        }
+        else
+        {
+            audioController = audioControllerObject.GetComponent<AudioController>();
+        }
+
+        if (audioController == null)
+        {
+            Debug.LogError("AudioController component not found");
+        }
+        else
+        {
+            audioController.collisionSound = Resources.Load<AudioClip>("Bullet Impact 14");
+            if (audioController.collisionSound == null)
+            {
+                Debug.LogError("AudioClip not found at path 'Bullet Impact 14'");
+            }
+        }
 
         GameObject newObserver = new GameObject("ObserverObject");
         GlobalListener observerScript = newObserver.AddComponent<GlobalListener>();

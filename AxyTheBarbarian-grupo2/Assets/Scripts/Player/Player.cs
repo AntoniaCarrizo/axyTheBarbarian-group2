@@ -13,11 +13,15 @@ public class Player : MonoBehaviour
     PhysicsController physicsController;
     StateController stateController;
 
+    AudioController audioController;
+
     void Start()
     {
         inputController = GetComponent<InputController>();
         physicsController = GetComponent<PhysicsController>();
         stateController = GetComponent<StateController>();
+        audioController = GetComponent<AudioController>();
+
     }
 
     void Update()
