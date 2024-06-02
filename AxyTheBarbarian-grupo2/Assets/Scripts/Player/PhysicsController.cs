@@ -12,11 +12,9 @@ public class PhysicsController : MonoBehaviour
     {
         player = GetComponent<Player>();
 
-        // Get the AudioController from the AudioControllerObject
         GameObject audioControllerObject = GameObject.Find("AudioControllerObject");
         if (audioControllerObject == null)
         {
-            // Create the AudioControllerObject and add the AudioController component
             audioControllerObject = new GameObject("AudioControllerObject");
             audioController = audioControllerObject.AddComponent<AudioController>();
         }

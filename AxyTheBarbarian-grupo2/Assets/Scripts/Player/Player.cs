@@ -7,7 +7,11 @@ public class Player : MonoBehaviour
     public Vector2 direction;
     public Vector2 movement;
     public bool canMove = true;
-    public float speed = 2;
+    public float walkingSpeed = 2.0F;
+    public float runningSpeed = 5.0F;
+
+    private bool isRunning;
+    private float speed;
 
     InputController inputController;
     PhysicsController physicsController;
@@ -27,7 +31,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         direction = inputController.HandleInput();
-        movement = physicsController.UpdateMovement(direction, this.speed);
+        isRunning = inputController.GetIsRunning();
+
+        speed = isRunning ? runningSpeed : walkingSpeed;
+        
+        movement = physicsController.UpdateMovement(direction, speed);
         stateController.UpdateState(canMove, movement);
     }
 
