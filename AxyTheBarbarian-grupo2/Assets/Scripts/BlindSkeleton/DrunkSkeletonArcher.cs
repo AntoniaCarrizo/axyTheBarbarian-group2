@@ -14,7 +14,7 @@ public class DrunkSkeletonArcher : MonoBehaviour
         if (Time.time > fireRate)
         {
             FireArrow();
-            fireRate = Time.time + 1f; // O ajusta el fireRate a tu necesidad
+            fireRate = Time.time + 1f;
         }
     }
 
