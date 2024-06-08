@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
 
     private bool isRunning;
     private float speed;
-
+  
     InputController inputController;
     PhysicsController physicsController;
     StateController stateController;
