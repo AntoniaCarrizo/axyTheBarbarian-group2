@@ -1,63 +1,81 @@
 using UnityEngine;
 
-public class CowardRat : MonoBehaviour
+public class RatWandering : MonoBehaviour
 {
-    public float wanderRadius = 10f;
-    public float fleeDistance = 5f;
-    private Transform playerObject; // Reference to the player object
-
+    public float speed = 2f;
+    public float changeDirectionTime = 3f;
+    public float detectionRadius = 5f;
     public GameObject player;
+
+    private Vector2 movementDirection;
+    private float changeDirectionTimer;
+    private bool isRunningAway = false;
 
     void Start()
     {
-        // Get the player reference using a tag
-        player = GameObject.FindGameObjectWithTag("Player");
-        
-        if (player != null)
-        {
-            playerObject = player.transform;
-        }
-        else
-        {
-            Debug.LogError("No GameObject found with tag 'Player'.");
-            return;
-        }
+        ChangeDirection();
+        changeDirectionTimer = changeDirectionTime;
     }
 
     void Update()
     {
-        // Try to find the player every frame until it's found
-        if (playerObject == null)
+        if (isRunningAway)
         {
-            GameObject playerGameObject = GameObject.FindGameObjectWithTag("Player");
-            
-            if (playerGameObject != null)
-            {
-                playerObject = playerGameObject.transform;
-            }
-            else
-            {
-                Debug.LogError("No GameObject found with tag 'Player'.");
-            }
-        }
-
-        // Skip the rest of the Update if no player is found
-        if (playerObject == null)
-        {
+            Move();
             return;
         }
 
-        // Wander
-        Vector3 randomPosition = Random.insideUnitSphere * wanderRadius;
-        transform.position += randomPosition * Time.deltaTime;
-
-        // Flee
-        float distanceToPlayer = Vector3.Distance(transform.position, playerObject.position);
-        if (distanceToPlayer <= fleeDistance)
+        changeDirectionTimer -= Time.deltaTime;
+        if (changeDirectionTimer <= 0)
         {
-            // Calculate the direction away from the player
-            Vector3 directionAwayFromPlayer = (transform.position - playerObject.position).normalized;
-            transform.position += directionAwayFromPlayer * Time.deltaTime * 5;
+            ChangeDirection();
+            changeDirectionTimer = changeDirectionTime;
         }
+
+        Move();
+
+        float distanceToPlayer = Vector2.Distance(transform.position, player.transform.position);
+        Debug.Log("Distance to Player: " + distanceToPlayer);
+
+        if (distanceToPlayer < detectionRadius)
+        {
+            Debug.Log("Player detected within radius");
+            RunAway();
+        }
+    }
+
+    void ChangeDirection()
+    {
+        float randomAngle = Random.Range(0f, 360f);
+        movementDirection = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle)).normalized;
+        Debug.Log("Changing Direction: " + movementDirection);
+    }
+
+    void Move()
+    {
+        transform.Translate(movementDirection * speed * Time.deltaTime);
+    }
+
+    void RunAway()
+    {
+        Vector2 directionAwayFromPlayer = (transform.position - player.transform.position).normalized;
+        movementDirection = directionAwayFromPlayer; // Set movementDirection to the opposite direction of the player
+        isRunningAway = true;
+        Debug.Log("Running Away: " + directionAwayFromPlayer);
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            Debug.Log("Collided with Wall: " + collision.gameObject.name);
+            ChangeDirection();
+        }
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, detectionRadius);
     }
 }
