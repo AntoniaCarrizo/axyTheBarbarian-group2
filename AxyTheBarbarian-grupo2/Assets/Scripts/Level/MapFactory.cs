@@ -12,6 +12,8 @@ public class MapFactory : MonoBehaviour
     public GameObject gazerPrefab;
     public GameObject exitPrefab;
 
+    public GameObject Rat;
+
     void Start()
     {
         GenerateMap();
@@ -49,6 +51,9 @@ public class MapFactory : MonoBehaviour
                         break;
                     case 'X':
                         Instantiate(exitPrefab, position, transform.rotation);
+                        break;
+                    case 'R':
+                        Instantiate(Rat, position, transform.rotation);
                         break;
                 }
             }
