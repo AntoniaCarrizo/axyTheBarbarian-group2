@@ -379,6 +379,7 @@ MonoBehaviour:
   skeletonPregab: {fileID: 9133298211437765597, guid: b911a71440dd1559cad530abeabaa72c, type: 3}
   gazerPrefab: {fileID: 286728288819704497, guid: d68c16c8ec23ac6d7a01f937a1df0f3d, type: 3}
   exitPrefab: {fileID: 8328720092655019301, guid: c49f75168d6aaee6faf10b55a6232b93, type: 3}
+  Rat: {fileID: 114631434820168554, guid: 9f7e88ffbf2114006a48147e4898522b, type: 3}
 --- !u!4 &585585516
 Transform:
   m_ObjectHideFlags: 0
