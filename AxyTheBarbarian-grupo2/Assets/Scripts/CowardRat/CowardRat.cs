@@ -1,6 +1,7 @@
 using UnityEngine;
+using System;
 
-public class RatWandering : MonoBehaviour
+public class CowardRat : MonoBehaviour
 {
     public float speed = 2f;
     public float changeDirectionTime = 3f;
@@ -9,16 +10,30 @@ public class RatWandering : MonoBehaviour
 
     private Vector2 movementDirection;
     private float changeDirectionTimer;
-    private bool isRunningAway = false;
+    private bool isRunningAway; // Declarar isRunningAway aquí
+
+    // Árbol de decisiones
+    private DecisionNode rootNode;
 
     void Start()
     {
+        // Configurar el árbol de decisiones
+        rootNode = new PlayerNearNode(
+            gameObject,
+            player,
+            detectionRadius,
+            new RunAwayNode(gameObject, player, movementDirection, isRunningAway), 
+            new InactiveNode()
+        );
+
         ChangeDirection();
         changeDirectionTimer = changeDirectionTime;
     }
-
     void Update()
     {
+        // Evaluar el árbol de decisiones
+        isRunningAway = rootNode.Evaluate();
+
         if (isRunningAway)
         {
             Move();
@@ -40,13 +55,13 @@ public class RatWandering : MonoBehaviour
         if (distanceToPlayer < detectionRadius)
         {
             Debug.Log("Player detected within radius");
-            RunAway();
+            SetRunningAway(true);
         }
     }
 
     void ChangeDirection()
     {
-        float randomAngle = Random.Range(0f, 360f);
+        float randomAngle = UnityEngine.Random.Range(0f, 360f);
         movementDirection = new Vector2(Mathf.Cos(randomAngle), Mathf.Sin(randomAngle)).normalized;
         Debug.Log("Changing Direction: " + movementDirection);
     }
@@ -56,12 +71,9 @@ public class RatWandering : MonoBehaviour
         transform.Translate(movementDirection * speed * Time.deltaTime);
     }
 
-    void RunAway()
+    void SetRunningAway(bool value)
     {
-        Vector2 directionAwayFromPlayer = (transform.position - player.transform.position).normalized;
-        movementDirection = directionAwayFromPlayer; // Set movementDirection to the opposite direction of the player
-        isRunningAway = true;
-        Debug.Log("Running Away: " + directionAwayFromPlayer);
+        isRunningAway = value;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
